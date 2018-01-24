@@ -22,6 +22,12 @@ the following requirements given in descending order of importance:
 - **Primary task**: reach the target position with the tip of the manipulator.
 - **Secondary task**: align the tip frame along with the target frame.
 
+:warning: The test will verify the capabilities of your controller in different
+conditions, assigning you **scores** according to the recorded performance, considering
+in particular cases where the primary and secondary tasks cannot be achieved
+at the same time or even cannot be fully completed. In the latter setting, the test
+will evaluate the **best effort** made to attain the primary task exclusively.
+
 An example of a successful control is visible in the animation below:
 
 ![robot](/misc/robot.gif)
