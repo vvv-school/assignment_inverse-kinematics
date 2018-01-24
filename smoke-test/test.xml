@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite name="Test Assignment on Inverse Kinematics">
+    <description>Testing the assignment on Inverse Kinematics</description>
+    <fixture param="--fixture fixture.xml"> yarpmanager </fixture>
+
+    <test type="dll"> TestAssignmentInverseKinematics </test>
+</suite>
