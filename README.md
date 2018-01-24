@@ -5,10 +5,10 @@ Assignment on Inverse Kinematics
 
 ### Introduction
 You are provided with the **3-links planar manipulator** shown in the sketch below,
-where the lengths **ℓ<sub>1</sub>**, **ℓ<sub>2</sub>**, **ℓ<sub>3</sub>** are all
-equal, whereas the tip 𝐸 is identified by the triplet **[x<sub>e</sub>, y<sub>e</sub>, φ<sub>e</sub>]**,
-being (x<sub>e</sub>, y<sub>e</sub>) the Cartesian coordinates of the tip and φ<sub>e</sub>
-the angle between the link 3 and the x-axis of the root frame.
+whose link lengths **ℓ<sub>1</sub>**, **ℓ<sub>2</sub>**, **ℓ<sub>3</sub>** are all
+equal and whose tip 𝐸 is identified by the triplet **[x<sub>e</sub>, y<sub>e</sub>, φ<sub>e</sub>]**,
+being (x<sub>e</sub>, y<sub>e</sub>) the Cartesian coordinates of the tip, whereas φ<sub>e</sub>
+is the angle between the link 3 and the x-axis of the root frame.
 
 ![kinematics](/misc/kinematics.png)
 
