@@ -22,7 +22,7 @@ the following requirements given in descending order of importance:
 - **Primary task**: reach the target position with the tip of the manipulator.
 - **Secondary task**: align the tip frame along with the target frame.
 
-An example of a successful controller is visible in the animation below:
+An example of a successful control is visible in the animation below:
 
 ![robot](/misc/robot.gif)
 
