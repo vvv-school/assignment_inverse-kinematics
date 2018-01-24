@@ -19,8 +19,8 @@ the joints angles **[θ<sub>1</sub>, θ<sub>2</sub>, θ<sub>3</sub>]**.
 Design a controller by filling in the missing code in the [**src/main.cpp**](src/main.cpp)
 module, which implements a suitable Inverse Kinematics algorithm to meet
 the following requirements given in descending order of importance:
-- **Primary task**: reach the target position with the tip of the manipulator.
-- **Secondary task**: align the tip frame along with the target frame.
+- :one: **Primary task**: reach the target position with the tip of the manipulator.
+- :two: **Secondary task**: align the tip frame along with the target frame.
 
 :point_right: The test will verify the capabilities of your controller in different
 conditions, assigning **scores** according to the recorded performance, considering
