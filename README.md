@@ -6,14 +6,14 @@ Assignment on Inverse Kinematics
 ### Introduction
 You are provided with the **3-links planar manipulator** shown in the sketch below,
 where the lengths **ℓ<sub>1</sub>**, **ℓ<sub>2</sub>**, **ℓ<sub>3</sub>** are all
-equal whereas the tip 𝐸 is identified by the triplet **[x<sub>e</sub>, y<sub>e</sub>, φ<sub>e</sub>]**,
+equal, whereas the tip 𝐸 is identified by the triplet **[x<sub>e</sub>, y<sub>e</sub>, φ<sub>e</sub>]**,
 being (x<sub>e</sub>, y<sub>e</sub>) the Cartesian coordinates of the tip and φ<sub>e</sub>
 the angle between the link 3 and the x-axis of the root frame.
 
 ![kinematics](/misc/kinematics.png)
 
-The manipulator is actuated by means of 3 motors controlled in velocity mode that move
-the joints angles represented by **[θ<sub>1</sub>, θ<sub>2</sub>, θ<sub>3</sub>]**.
+Moreover, the manipulator is actuated by means of 3 motors controlled in velocity that move
+the joints angles **[θ<sub>1</sub>, θ<sub>2</sub>, θ<sub>3</sub>]**.
 
 ### Goal
 Design a controller by filling in the missing code in the [**src/main.cpp**](src/main.cpp)
@@ -23,7 +23,7 @@ the following requirements given in descending order of importance:
 - **Secondary task**: align the tip frame along with the target frame.
 
 :warning: The test will verify the capabilities of your controller in different
-conditions, assigning you **scores** according to the recorded performance, considering
+conditions, assigning **scores** according to the recorded performance, considering
 in particular cases where the primary and secondary tasks cannot be achieved
 at the same time or even cannot be fully completed. In the latter setting, the test
 will evaluate the **best effort** made to attain the primary task exclusively.
