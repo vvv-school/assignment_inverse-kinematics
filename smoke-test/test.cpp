@@ -300,21 +300,24 @@ public:
 
     /******************************************************************/
     void assign_points(const string &test, const double min_dist,
-                       const double min_phi, const unsigned int points,
-                       unsigned int &score)
+                       const double min_phi, const unsigned int p1,
+                       const unsigned int p2, unsigned int &score)
     {
         LockGuard lg(mutex);
         if (norm(velocity)<1.0*CTRL_DEG2RAD)
         {
             if (norm(Hee.getCol(2).subVector(0,1)-target.subVector(0,1))<min_dist)
             {
+                score+=p1;
+                RTF_TEST_REPORT(Asserter::format("Position reached! Gained %d point(s)",p1));
+
                 Vector j=robot->getJoints();
                 double phi=j[0]+j[1]+j[2];
                 if (fabs(target[2]-phi)<min_phi*CTRL_DEG2RAD)
                 {
-                    score+=points;
+                    score+=p2;
                     RTF_TEST_REPORT(Asserter::format("%s Successful! Gained %d point(s)",
-                                                     test.c_str(),points));
+                                                     test.c_str(),p2));
                     return;
                 }
             }
@@ -331,21 +334,21 @@ public:
 
         applyTarget(100.0,45.0,0.0);
         Time::delay(20.0);
-        assign_points("Got reachable goal?",1.0,1.0,1,score);
+        assign_points("Got reachable goal?",1.0,1.0,1,2,score);
 
         applyTarget(100.0,180+45.0,180.0);
         Time::delay(20.0);
-        assign_points("Got reachable goal?",1.0,1.0,1,score);
+        assign_points("Got reachable goal?",1.0,1.0,1,2,score);
 
         applyTarget(150.0,180+45.0,0.0);
         Time::delay(20.0);
-        assign_points("Got reachable position?",10.0,
-                      std::numeric_limits<double>::infinity(),2,score);
+        assign_points("Got reachable position?",20.0,
+                      std::numeric_limits<double>::infinity(),1,3,score);
 
         applyTarget(220.0,90.0,0.0);
         Time::delay(20.0);
-        assign_points("Best effort done?",1.1*(220.0-3.0*link_length),
-                      std::numeric_limits<double>::infinity(),2,score);
+        assign_points("Best effort done?",1.3*(220.0-3.0*link_length),
+                      std::numeric_limits<double>::infinity(),1,3,score);
 
         RTF_TEST_CHECK(score>0,Asserter::format("Total score = %d",score));
     }

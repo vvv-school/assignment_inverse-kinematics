@@ -6,7 +6,16 @@
         <author email="ugo.pattacini@iit.it">Ugo Pattacini</author>
     </authors>
     <module>
+        <name>yarplogger</name>
+        <parameters>--start</parameters>
+        <node>testnode</node>
+    </module>
+    <module>
         <name>assignment_inverse-kinematics</name>
+        <environment>YARP_FORWARD_LOG_ENABLE=1</environment>
+        <dependencies>
+            <port timeout="10">/yarplogger</port>
+        </dependencies>
         <node>testnode</node>
     </module>
     <module>
