@@ -333,19 +333,23 @@ public:
         unsigned int score=0;
 
         applyTarget(100.0,45.0,0.0);
+        RTF_TEST_REPORT("Waiting 20 seconds...");
         Time::delay(20.0);
         assign_points("Got reachable goal?",1.0,1.0,1,2,score);
 
         applyTarget(100.0,180+45.0,180.0);
+        RTF_TEST_REPORT("Waiting 20 seconds...");
         Time::delay(20.0);
         assign_points("Got reachable goal?",1.0,1.0,1,2,score);
 
         applyTarget(150.0,180+45.0,0.0);
+        RTF_TEST_REPORT("Waiting 20 seconds...");
         Time::delay(20.0);
         assign_points("Got reachable position?",20.0,
                       std::numeric_limits<double>::infinity(),1,3,score);
 
         applyTarget(220.0,90.0,0.0);
+        RTF_TEST_REPORT("Waiting 20 seconds...");
         Time::delay(20.0);
         assign_points("Best effort done?",1.3*(220.0-3.0*link_length),
                       std::numeric_limits<double>::infinity(),1,3,score);
