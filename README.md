@@ -16,7 +16,7 @@ Moreover, the manipulator is actuated by means of 3 motors controlled in velocit
 the joints angles **[θ<sub>1</sub>, θ<sub>2</sub>, θ<sub>3</sub>]**.
 
 ### Goal
-Design a controller by filling in the missing code in the [**src/main.cpp**](src/main.cpp)
+Design a controller by filling in the missing code in the [**`src/main.cpp`**](src/main.cpp)
 module, which implements a suitable Inverse Kinematics algorithm to meet
 the following requirements given in descending order of importance:
 - :one: **Primary task**: reach the target position with the tip of the manipulator.
@@ -33,5 +33,10 @@ attain the primary task solely.
 An example of a successful control is visible in the animation below:
 
 ![robot](/misc/robot.gif)
+
+While [running the script **test.sh**](https://github.com/vvv-school/vvv-school.github.io/blob/master/instructions/how-to-run-smoke-tests.md) in the **smoke-test** directory, you might find helpful resorting to the [`yarplogger`](http://www.yarp.it/yarplogger.html) utility to catch all the printouts produced through `yDebug`, `yWarning`, `yInfo` and the like. Thus, do the following:
+- Make sure that `yarpserver` is running.
+- Launch the `yarplogger`.
+- Launch the smoke test.
 
 # [How to complete the assignment](https://github.com/vvv-school/vvv-school.github.io/blob/master/instructions/how-to-complete-assignments.md)
