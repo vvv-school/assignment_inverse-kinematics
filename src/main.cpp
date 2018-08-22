@@ -77,7 +77,7 @@ public:
 
         // retrieve the current target position
         Vector ee_d=target.subVector(0,1);
-        
+
         // retrieve the current target orientation
         double phi_d=target[2];
 
@@ -85,10 +85,10 @@ public:
         vel=zeros(3);
 
         // FILL IN THE CODE
-        
+
         // deliver the computed velocities to the actuators
         portMotors.writeStrict();
-        
+
         return true;
     }
 };

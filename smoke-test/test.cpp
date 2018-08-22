@@ -17,7 +17,7 @@
 
 #include <yarp/rtf/TestCase.h>
 #include <yarp/os/Network.h>
-#include <yarp/os/RateThread.h>
+#include <yarp/os/PeriodicThread.h>
 #include <yarp/os/Property.h>
 #include <yarp/os/Time.h>
 #include <yarp/os/BufferedPort.h>
@@ -181,12 +181,12 @@ class TestAssignmentInverseKinematics : public yarp::rtf::TestCase
     double period;
 
     Mutex mutex;
-    class Handler : public RateThread
+    class Handler : public PeriodicThread
     {
         void run()override { tester->move(); }
     public:
         TestAssignmentInverseKinematics *tester;
-        Handler() : RateThread(0) { }
+        Handler() : PeriodicThread(0.0) { }
     } thread;
 
 public:
@@ -237,7 +237,7 @@ public:
         Rand::init();
 
         thread.tester=this;
-        thread.setRate((int)(1000.0*period));
+        thread.setPeriod(period);
         thread.start();
 
         return true;
