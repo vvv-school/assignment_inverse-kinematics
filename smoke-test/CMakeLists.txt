@@ -16,7 +16,7 @@ set(CMAKE_SHARED_MODULE_PREFIX "")
 # add the required cmake packages
 find_package(RTF)
 find_package(RTF 1.3 COMPONENTS DLL)
-find_package(YARP REQUIRED COMPONENTS OS sig math rtf)
+find_package(YARP 3.0 REQUIRED COMPONENTS OS sig math rtf)
 find_package(ICUB REQUIRED)
 
 list(APPEND CMAKE_MODULE_PATH ${ICUB_MODULE_PATH})
