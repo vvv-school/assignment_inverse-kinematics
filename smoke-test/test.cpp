@@ -12,10 +12,10 @@
 
 #include <opencv2/opencv.hpp>
 
-#include <rtf/dll/Plugin.h>
-#include <rtf/TestAssert.h>
+#include <robottestingframework/dll/Plugin.h>
+#include <robottestingframework/TestAssert.h>
 
-#include <yarp/rtf/TestCase.h>
+#include <yarp/robottestingframework/TestCase.h>
 #include <yarp/os/Network.h>
 #include <yarp/os/PeriodicThread.h>
 #include <yarp/os/Property.h>
@@ -34,7 +34,7 @@
 #include <iCub/ctrl/pids.h>
 
 using namespace std;
-using namespace RTF;
+using namespace robottestingframework;
 using namespace yarp::os;
 using namespace yarp::sig;
 using namespace yarp::math;
@@ -165,7 +165,7 @@ public:
 
 
 /**********************************************************************/
-class TestAssignmentInverseKinematics : public yarp::rtf::TestCase
+class TestAssignmentInverseKinematics : public yarp::robottestingframework::TestCase
 {
     Robot *robot;
 
@@ -216,19 +216,19 @@ public:
         portEncoders.open("/"+getName()+"/encoders:o");
         portTarget.open("/"+getName()+"/target:o");
 
-        RTF_ASSERT_ERROR_IF_FALSE(Network::connect(portEnvironment.getName(),
+        ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(Network::connect(portEnvironment.getName(),
                                                    "/environment"),
                                   "Unable to connect to environment port");
 
-        RTF_ASSERT_ERROR_IF_FALSE(Network::connect("/assignment_inverse-kinematics/motors:o",
+        ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(Network::connect("/assignment_inverse-kinematics/motors:o",
                                                    portMotors.getName()),
                                   "Unable to connect to motors port");
 
-        RTF_ASSERT_ERROR_IF_FALSE(Network::connect(portEncoders.getName(),
+        ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(Network::connect(portEncoders.getName(),
                                                    "/assignment_inverse-kinematics/encoders:i"),
                                   "Unable to connect to encoders port");
 
-        RTF_ASSERT_ERROR_IF_FALSE(Network::connect(portTarget.getName(),
+        ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(Network::connect(portTarget.getName(),
                                                    "/assignment_inverse-kinematics/target:i"),
                                   "Unable to connect to target port");
 
@@ -311,53 +311,53 @@ public:
             if (norm(Hee.getCol(2).subVector(0,1)-target.subVector(0,1))<min_dist)
             {
                 score+=p1;
-                RTF_TEST_REPORT(Asserter::format("Position reached! Gained %d point(s)",p1));
+                ROBOTTESTINGFRAMEWORK_TEST_REPORT(Asserter::format("Position reached! Gained %d point(s)",p1));
 
                 Vector j=robot->getJoints();
                 double phi=j[0]+j[1]+j[2];
                 if (fabs(target[2]-phi)<min_phi*CTRL_DEG2RAD)
                 {
                     score+=p2;
-                    RTF_TEST_REPORT(Asserter::format("%s Successful! Gained %d point(s)",
+                    ROBOTTESTINGFRAMEWORK_TEST_REPORT(Asserter::format("%s Successful! Gained %d point(s)",
                                                      test.c_str(),p2));
                     return;
                 }
             }
         }
 
-        RTF_TEST_REPORT(Asserter::format("%s Failed!",test.c_str()));
+        ROBOTTESTINGFRAMEWORK_TEST_REPORT(Asserter::format("%s Failed!",test.c_str()));
     }
 
     /******************************************************************/
     void run()override
     {
-        RTF_TEST_REPORT("Testing controller's performance");
+        ROBOTTESTINGFRAMEWORK_TEST_REPORT("Testing controller's performance");
         unsigned int score=0;
 
         applyTarget(100.0,45.0,0.0);
-        RTF_TEST_REPORT("Waiting 20 seconds...");
+        ROBOTTESTINGFRAMEWORK_TEST_REPORT("Waiting 20 seconds...");
         Time::delay(20.0);
         assign_points("Got reachable goal?",1.0,1.0,1,2,score);
 
         applyTarget(100.0,180+45.0,180.0);
-        RTF_TEST_REPORT("Waiting 20 seconds...");
+        ROBOTTESTINGFRAMEWORK_TEST_REPORT("Waiting 20 seconds...");
         Time::delay(20.0);
         assign_points("Got reachable goal?",1.0,1.0,1,2,score);
 
         applyTarget(150.0,180+45.0,0.0);
-        RTF_TEST_REPORT("Waiting 20 seconds...");
+        ROBOTTESTINGFRAMEWORK_TEST_REPORT("Waiting 20 seconds...");
         Time::delay(20.0);
         assign_points("Got reachable position?",20.0,
                       std::numeric_limits<double>::infinity(),1,3,score);
 
         applyTarget(220.0,90.0,0.0);
-        RTF_TEST_REPORT("Waiting 20 seconds...");
+        ROBOTTESTINGFRAMEWORK_TEST_REPORT("Waiting 20 seconds...");
         Time::delay(20.0);
         assign_points("Best effort done?",1.3*(220.0-3.0*link_length),
                       std::numeric_limits<double>::infinity(),1,3,score);
 
-        RTF_TEST_CHECK(score>0,Asserter::format("Total score = %d",score));
+        ROBOTTESTINGFRAMEWORK_TEST_CHECK(score>0,Asserter::format("Total score = %d",score));
     }
 };
 
-PREPARE_PLUGIN(TestAssignmentInverseKinematics)
+ROBOTTESTINGFRAMEWORK_PREPARE_PLUGIN(TestAssignmentInverseKinematics)
