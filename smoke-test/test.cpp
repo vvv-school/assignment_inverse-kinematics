@@ -43,22 +43,23 @@ using namespace iCub::ctrl;
 
 
 /**********************************************************************/
-cv::Point repoint(const ImageOf<PixelRgb> &img, const Vector &p)
+cv::Point repoint(cv::Mat &imgMat, const Vector &p)
 {
-    return cv::Point((int)(img.width()/2.0+p[0]),
-                     (int)(img.height()/2.0-p[1]));
+    return cv::Point((int)(imgMat.size().width/2.0+p[0]),
+                     (int)(imgMat.size().height/2.0-p[1]));
 }
 
 
 /**********************************************************************/
-void drawAxes(ImageOf<PixelRgb> &img, const Matrix &H)
+void drawAxes(cv::Mat &imgMat, const Matrix &H,
+              const cv::Scalar &axis_x=cv::Scalar(255,0,0),
+              const cv::Scalar &axis_y=cv::Scalar(0,255,0))
 {
     Vector x=20.0*H.getCol(0);
     Vector y=20.0*H.getCol(1);
     Vector p=H.getCol(2);
-    cv::Mat imgMat=toCvMat(img);
-    cv::line(imgMat,repoint(img,p),repoint(img,p+x),cv::Scalar(255,0,0));
-    cv::line(imgMat,repoint(img,p),repoint(img,p+y),cv::Scalar(0,255,0));
+    cv::line(imgMat,repoint(imgMat,p),repoint(imgMat,p+x),axis_x);
+    cv::line(imgMat,repoint(imgMat,p),repoint(imgMat,p+y),axis_y);
 }
 
 
@@ -95,7 +96,7 @@ public:
     }
 
     /******************************************************************/
-    Matrix draw(const Matrix &H, const double joint, ImageOf<PixelRgb> &img) const
+    Matrix draw(const Matrix &H, const double joint, cv::Mat &imgMat) const
     {
         double c=cos(joint);
         double s=sin(joint);
@@ -109,11 +110,10 @@ public:
         for (auto &point:points)
         {
             Vector p=H_*point;
-            pts.push_back(repoint(img,p));
+            pts.push_back(repoint(imgMat,p));
         }
         vector<vector<cv::Point>> poly(1,pts);
 
-        cv::Mat imgMat=toCvMat(img);
         cv::fillPoly(imgMat,poly,cv::Scalar(96,176,224));
         cv::circle(imgMat,pts[0],4,cv::Scalar(0,255,0),CV_FILLED);
         cv::circle(imgMat,pts[3],4,cv::Scalar(0,255,0),CV_FILLED);
@@ -144,9 +144,12 @@ public:
     {
         Matrix H=eye(3,3);
         joints->integrate(velocity);
+
+        cv::Mat imgMat=toCvMat(img);
         for (int i=0; i<links.size(); i++)
-            H=links[i].draw(H,joints->get()[i],img);
-        drawAxes(img,H);
+            H=links[i].draw(H,joints->get()[i],imgMat);
+        drawAxes(imgMat,H);
+
         return H;
     }
 
@@ -269,13 +272,13 @@ public:
         env.resize(env_edge,env_edge); env.zero();
 
         cv::Mat imgMat=toCvMat(env);
-        cv::circle(imgMat,repoint(env,target),5,cv::Scalar(0,0,255),CV_FILLED);
+        cv::circle(imgMat,repoint(imgMat,target),5,cv::Scalar(0,0,255),CV_FILLED);
 
         Vector rot(4,0.0);
         rot[2]=1.0; rot[3]=target[2];
         Matrix H=axis2dcm(rot).submatrix(0,2,0,2);
         H(0,2)=target[0]; H(1,2)=target[1]; H(2,2)=1.0;
-        drawAxes(env,H);
+        drawAxes(imgMat,H,cv::Scalar(0,0,255));
 
         Hee=robot->move(velocity,env);
 
