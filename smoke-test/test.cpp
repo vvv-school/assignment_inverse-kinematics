@@ -51,7 +51,7 @@ cv::Point repoint(const ImageOf<PixelRgb> &img, const Vector &p)
 
 
 /**********************************************************************/
-void drawAxes(const ImageOf<PixelRgb> &img, const Matrix &H)
+void drawAxes(ImageOf<PixelRgb> &img, const Matrix &H)
 {
     Vector x=20.0*H.getCol(0);
     Vector y=20.0*H.getCol(1);
