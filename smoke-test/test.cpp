@@ -5,6 +5,7 @@
 */
 
 #include <cstdlib>
+#include <mutex>
 #include <vector>
 #include <cmath>
 #include <limits>
@@ -21,7 +22,6 @@
 #include <yarp/os/Property.h>
 #include <yarp/os/Time.h>
 #include <yarp/os/BufferedPort.h>
-#include <yarp/os/Mutex.h>
 #include <yarp/os/LockGuard.h>
 #include <yarp/sig/Image.h>
 #include <yarp/sig/Vector.h>
@@ -185,7 +185,7 @@ class TestAssignmentInverseKinematics : public yarp::robottestingframework::Test
     int env_edge;
     double period;
 
-    Mutex mutex;
+    mutex mtx;
     class Handler : public PeriodicThread
     {
         void run()override { tester->move(); }
@@ -263,7 +263,7 @@ public:
     /******************************************************************/
     void move()
     {
-        LockGuard lg(mutex);
+        lock_guard<mutex> lg(mtx);
         if (Vector *vel=portMotors.read(false))
             if (vel->length()==velocity.length())
                 velocity=*vel;
@@ -291,7 +291,7 @@ public:
     void applyTarget(const double radius, const double alpha,
                      const double phi)
     {
-        LockGuard lg(mutex);
+        lock_guard<mutex> lg(mtx);
         double r=Rand::scalar(radius-10.0,radius+10.0);
         double a=CTRL_DEG2RAD*Rand::scalar(alpha-10.0,alpha+10.0);
 
@@ -308,7 +308,7 @@ public:
                        const double min_phi, const unsigned int p1,
                        const unsigned int p2, unsigned int &score)
     {
-        LockGuard lg(mutex);
+        lock_guard<mutex> lg(mtx);
         if (norm(velocity)<1.0*CTRL_DEG2RAD)
         {
             if (norm(Hee.getCol(2).subVector(0,1)-target.subVector(0,1))<min_dist)
