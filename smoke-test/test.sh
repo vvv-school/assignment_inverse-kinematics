@@ -5,13 +5,17 @@
 # CopyPolicy: Released under the terms of the GNU GPL v3.0.
 
 get_helpers=false
+branch=master
 if [ $# -gt 0 ]; then
     if [ "$1" == "--get-helpers" ]; then
         get_helpers=true
+        if [ $# -gt 1 ]; then
+            branch=$2
+        fi
     elif [ "$1" == "--help" ]; then
         echo ""
-        echo "Usage: $0 [--get-helpers]"
-        echo "\"--get-helpers\" specifies to force downloading helper tools anew"
+        echo "Usage: $0 [--get-helpers [branch|tag]]"
+        echo "\"--get-helpers [branch|tag]\" forces downloading helper tools anew on specified branch or tag (default = master)"
         echo ""
         exit 0
     fi
@@ -33,7 +37,7 @@ if [ -d build ]; then
     cd build
 else
     mkdir build && cd build
-    git clone --depth 1 -b master https://github.com/vvv-school/vvv-school.github.io.git helpers
+    git clone https://github.com/vvv-school/vvv-school.github.io.git --depth 1 --branch $branch helpers
 fi
 build_dir=$(pwd)
 
