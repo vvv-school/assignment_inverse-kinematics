@@ -15,7 +15,7 @@ set(CMAKE_SHARED_MODULE_PREFIX "")
 
 # add the required cmake packages
 find_package(RobotTestingFramework 2.0.0 COMPONENTS DLL)
-find_package(YARP 3.1.101 REQUIRED COMPONENTS OS sig math cv robottestingframework)
+find_package(YARP 3.3.0 REQUIRED COMPONENTS os sig math cv robottestingframework)
 find_package(ICUB REQUIRED)
 
 list(APPEND CMAKE_MODULE_PATH ${ICUB_MODULE_PATH})
