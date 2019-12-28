@@ -12,7 +12,7 @@ equal and whose tip 𝐸 is identified by the triplet **[x<sub>e</sub>, y<sub>e<
 being (x<sub>e</sub>, y<sub>e</sub>) the Cartesian coordinates of the tip, whereas φ<sub>e</sub>
 is the angle between the link 3 and the x-axis of the root frame.
 
-![kinematics](/misc/kinematics.png)
+![kinematics](/assets/kinematics.png)
 
 Moreover, the manipulator is actuated by means of 3 motors controlled in velocity that move
 the joints angles **[θ<sub>1</sub>, θ<sub>2</sub>, θ<sub>3</sub>]**.
@@ -34,7 +34,7 @@ attain the primary task solely.
 
 An example of a successful control is visible in the animation below:
 
-![robot](/misc/robot.gif)
+![robot](/assets/robot.gif)
 
 While [running the script **test.sh**](https://github.com/vvv-school/vvv-school.github.io/blob/master/instructions/how-to-run-smoke-tests.md) in the **smoke-test** directory, you might find helpful resorting to the [`yarplogger`](http://www.yarp.it/yarplogger.html) utility to catch all the printouts produced through `yDebug`, `yWarning`, `yInfo` and the like. Thus, do the following:
 - Make sure that `yarpserver` is running.
