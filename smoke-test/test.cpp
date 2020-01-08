@@ -219,21 +219,17 @@ public:
         portEncoders.open("/"+getName()+"/encoders:o");
         portTarget.open("/"+getName()+"/target:o");
 
-        ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(Network::connect(portEnvironment.getName(),
-                                                   "/environment"),
-                                  "Unable to connect to environment port");
+        if (!Network::connect(portEnvironment.getName(),"/environment"))
+            ROBOTTESTINGFRAMEWORK_ASSERT_FAIL("Unable to connect to environment port");
 
-        ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(Network::connect("/assignment_inverse-kinematics/motors:o",
-                                                   portMotors.getName()),
-                                  "Unable to connect to motors port");
+        if (!Network::connect("/assignment_inverse-kinematics/motors:o",portMotors.getName()))
+            ROBOTTESTINGFRAMEWORK_ASSERT_FAIL("Unable to connect to motors port");
 
-        ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(Network::connect(portEncoders.getName(),
-                                                   "/assignment_inverse-kinematics/encoders:i"),
-                                  "Unable to connect to encoders port");
+        if (!Network::connect(portEncoders.getName(),"/assignment_inverse-kinematics/encoders:i"))
+            ROBOTTESTINGFRAMEWORK_ASSERT_FAIL("Unable to connect to encoders port");
 
-        ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(Network::connect(portTarget.getName(),
-                                                   "/assignment_inverse-kinematics/target:i"),
-                                  "Unable to connect to target port");
+        if (!Network::connect(portTarget.getName(),"/assignment_inverse-kinematics/target:i"))
+            ROBOTTESTINGFRAMEWORK_ASSERT_FAIL("Unable to connect to target port");
 
         velocity.resize(3,0.0);
         target.resize(3,0.0);
