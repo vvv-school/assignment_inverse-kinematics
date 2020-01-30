@@ -11,6 +11,7 @@
 #include <limits>
 #include <string>
 
+#include <opencv2/core.hpp>
 #include <opencv2/opencv.hpp>
 
 #include <robottestingframework/dll/Plugin.h>
@@ -115,8 +116,8 @@ public:
         vector<vector<cv::Point>> poly(1,pts);
 
         cv::fillPoly(imgMat,poly,cv::Scalar(96,176,224));
-        cv::circle(imgMat,pts[0],4,cv::Scalar(0,255,0),CV_FILLED);
-        cv::circle(imgMat,pts[3],4,cv::Scalar(0,255,0),CV_FILLED);
+        cv::circle(imgMat,pts[0],4,cv::Scalar(0,255,0),cv::FILLED);
+        cv::circle(imgMat,pts[3],4,cv::Scalar(0,255,0),cv::FILLED);
 
         Matrix T=eye(3,3); T(0,2)=length;
         return H_*T;
@@ -268,7 +269,7 @@ public:
         env.resize(env_edge,env_edge); env.zero();
 
         cv::Mat imgMat=toCvMat(env);
-        cv::circle(imgMat,repoint(imgMat,target),5,cv::Scalar(0,0,255),CV_FILLED);
+        cv::circle(imgMat,repoint(imgMat,target),5,cv::Scalar(0,0,255),cv::FILLED);
 
         Vector rot(4,0.0);
         rot[2]=1.0; rot[3]=target[2];
