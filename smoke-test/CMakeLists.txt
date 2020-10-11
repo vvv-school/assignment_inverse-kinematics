@@ -18,8 +18,6 @@ find_package(RobotTestingFramework 2.0.0 COMPONENTS DLL)
 find_package(YARP 3.3.0 REQUIRED COMPONENTS os sig math cv robottestingframework)
 find_package(ICUB REQUIRED)
 
-list(APPEND CMAKE_MODULE_PATH ${ICUB_MODULE_PATH})
-
 find_package(OpenCV REQUIRED)
 
 # add include directories
