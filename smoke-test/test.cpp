@@ -209,9 +209,9 @@ public:
     /******************************************************************/
     bool setup(yarp::os::Property &property)override
     {
-        link_length=property.check("link-length",Value(60.0)).asDouble();
-        env_edge=property.check("environment-edge",Value(500)).asInt();
-        period=property.check("period",Value(0.01)).asDouble();
+        link_length=property.check("link-length",Value(60.0)).asFloat64();
+        env_edge=property.check("environment-edge",Value(500)).asInt32();
+        period=property.check("period",Value(0.01)).asFloat64();
 
         robot=new Robot(3,link_length,period);
 

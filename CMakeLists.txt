@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 11)
 project(assignment_inverse-kinematics)
 
 # mandatory use of these packages
-find_package(YARP 3.3.0 REQUIRED)
+find_package(YARP 3.5.1 REQUIRED)
 find_package(ICUBcontrib REQUIRED)
 
 # extend the current search path used by cmake to load helpers

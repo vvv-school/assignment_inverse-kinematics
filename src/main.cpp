@@ -36,7 +36,7 @@ class Controller : public RFModule
 public:
     bool configure(ResourceFinder &rf)override
     {
-        link_length=rf.check("link-length",Value(60.0)).asDouble();
+        link_length=rf.check("link-length",Value(60.0)).asFloat64();
 
         portMotors.open("/assignment_inverse-kinematics/motors:o");
         portEncoders.open("/assignment_inverse-kinematics/encoders:i");
